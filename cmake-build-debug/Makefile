@@ -57,10 +57,10 @@ RM = /snap/clion/162/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pavle/Desktop/project_base
+CMAKE_SOURCE_DIR = /home/user/Desktop/rg/rgProjekat
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pavle/Desktop/project_base/cmake-build-debug
+CMAKE_BINARY_DIR = /home/user/Desktop/rg/rgProjekat/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pavle/Desktop/project_base/cmake-build-debug/CMakeFiles /home/pavle/Desktop/project_base/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/rg/rgProjekat/cmake-build-debug/CMakeFiles /home/user/Desktop/rg/rgProjekat/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pavle/Desktop/project_base/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/rg/rgProjekat/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

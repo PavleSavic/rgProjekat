@@ -166,13 +166,13 @@ imgui.h
 TargetConditionals.h
 ../libs/imgui/include/TargetConditionals.h
 
-/home/pavle/Desktop/project_base/src/main.cpp
+/home/user/Desktop/rg/rgProjekat/src/main.cpp
 imgui.h
-/home/pavle/Desktop/project_base/src/imgui.h
+/home/user/Desktop/rg/rgProjekat/src/imgui.h
 imgui_impl_glfw.h
-/home/pavle/Desktop/project_base/src/imgui_impl_glfw.h
+/home/user/Desktop/rg/rgProjekat/src/imgui_impl_glfw.h
 imgui_impl_opengl3.h
-/home/pavle/Desktop/project_base/src/imgui_impl_opengl3.h
+/home/user/Desktop/rg/rgProjekat/src/imgui_impl_opengl3.h
 glad/glad.h
 -
 GLFW/glfw3.h

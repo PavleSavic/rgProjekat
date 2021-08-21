@@ -630,6 +630,23 @@ int main() {
             glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
         }
 
+        // now draw the skybox
+        if(programState->skyBoxEnabled) {
+            glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+            skyboxShader.use();
+            glm::mat4 view1 = glm::mat4(glm::mat3(view)); // remove translation from the view matrix
+            skyboxShader.setMat4("view", view1);
+            skyboxShader.setMat4("projection", projection);
+            // skybox cube
+            glBindVertexArray(skyboxVAO);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+            glBindVertexArray(0);
+            glDepthFunc(GL_LESS); // set depth function back to default
+        }
+
+        // at the end draw blending objects
         windowShader.use();
         windowShader.setMat4("projection", projection);
         windowShader.setMat4("view", view);
@@ -644,22 +661,6 @@ int main() {
             model = glm::scale(model, glm::vec3(3.0f));
             windowShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0 ,6);
-        }
-
-        // at the end draw skybox
-        if(programState->skyBoxEnabled) {
-            glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
-            skyboxShader.use();
-            view = glm::mat4(glm::mat3(view)); // remove translation from the view matrix
-            skyboxShader.setMat4("view", view);
-            skyboxShader.setMat4("projection", projection);
-            // skybox cube
-            glBindVertexArray(skyboxVAO);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-            glBindVertexArray(0);
-            glDepthFunc(GL_LESS); // set depth function back to default
         }
 
         if (programState->ImGuiEnabled)
@@ -755,23 +756,24 @@ void DrawImGui(ProgramState *programState) {
 }
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
+    if (key == GLFW_KEY_R && action == GLFW_RELEASE && !programState->skyBoxEnabled) {
         std::cerr << "Change clear color to RED\n";
         programState->clearColor = glm::vec3(1.0f,0.0f,0.f);
     }
-    if (key == GLFW_KEY_G && action == GLFW_RELEASE) {
+    if (key == GLFW_KEY_G && action == GLFW_RELEASE && !programState->skyBoxEnabled) {
         std::cerr << "Change clear color to GREEN\n";
         programState->clearColor = glm::vec3 (0.0f,1.0f,0.f);
     }
-    if (key == GLFW_KEY_B && action == GLFW_RELEASE) {
+    if (key == GLFW_KEY_B && action == GLFW_RELEASE && !programState->skyBoxEnabled) {
         std::cerr << "Change clear color to BLUE\n";
         programState->clearColor = glm::vec3 (0.0f,0.0f,1.0f);
     }
-    if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
+    if (key == GLFW_KEY_P && action == GLFW_RELEASE && !programState->skyBoxEnabled) {
         std::cerr << "Change clear color to DEFAULT\n";
         programState->clearColor = glm::vec3 (0.1f,0.1f,0.1f);
     }
     if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+        std::cerr << "Material shininess ++\n";
         programState->materialShininess = programState->materialShininess * 2.0f;
         std::cerr << "Material shininess = " << programState->materialShininess << "\n";
     }
@@ -867,4 +869,3 @@ unsigned int loadCubemap(vector<std::string> faces) {
 
     return textureID;
 }
-
